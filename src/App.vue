@@ -8,6 +8,15 @@
   </div>
 </template>
 
+<script>
+export default {
+  async created() {
+    await this.$store.dispatch('getDataFromApi');
+    console.log('test', this.$store.state.dataFromApi);
+  },
+};
+</script>
+
 <style lang="scss">
 @import '../node_modules/typeface-roboto/index.css';
 

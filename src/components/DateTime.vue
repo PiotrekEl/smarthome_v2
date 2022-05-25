@@ -1,7 +1,7 @@
 <template>
     <div class="date-time">
         <div class="date-time__date">
-            {{ dateTime.date }}
+            {{ dateTime.day }}, {{ dateTime.date }}
         </div>
         <div class="date-time__time">
             {{ dateTime.time }}
@@ -14,36 +14,30 @@
 </template>
 
 <script>
-import axios from 'axios';
 
 export default {
   data() {
     return {
       dataFromApi: {},
+      weekDay: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
     };
   },
   computed: {
     dateTime() {
       return {
-        date: Date(this.dataFromApi).split(' ').slice(0, 4).join(' '),
-        time: Date(this.dataFromApi).split(' ')[4].split(':').slice(0, 2).join(':'),
+        time: this.$store.getters.time,
+        date: this.$store.getters.date,
+        day: this.weekDay[new Date().getDay()],
       };
     },
     location() {
-      return this.dataFromApi.data.location.name;
+      return this.$store.state.dataFromApi.data.location.name;
     },
   },
 
   methods: {
-    getDataFromApi() {
-      return axios.get('http://api.weatherapi.com/v1/current.json?key=d6d816f3e87047df8e8155857222305&q=Dąbrowa Górnicza&aqi=yes');
-    },
   },
   created() {
-    this.getDataFromApi().then((response) => {
-      this.dataFromApi = response;
-      console.log(this.dataFromApi);
-    });
   },
 };
 </script>
@@ -52,10 +46,6 @@ export default {
 .date-time {
   text-align: right;
   padding: 1rem;
-  width: 18rem;
-  position: fixed;
-  right: 0;
-  top: 0;
   &__date {
     font-size: 1.5rem;
     font-weight: 400;
