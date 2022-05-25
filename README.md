@@ -2,6 +2,10 @@
 
 ## Project setup
 ```
+nvm use 14.15.5
+```
+
+```
 npm install
 ```
 
