@@ -12,7 +12,6 @@
 export default {
   async created() {
     await this.$store.dispatch('getDataFromApi');
-    console.log('test', this.$store.state.dataFromApi);
   },
 };
 </script>

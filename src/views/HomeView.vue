@@ -1,9 +1,9 @@
 <template>
   <div class="home">
     <div class="home__right-panel">
-    <date-time/>
-    <current-wheather/>
-  </div>
+      <date-time/>
+      <current-wheather/>
+    </div>
     <!-- <img alt="Vue logo" src="../assets/logo.png"> -->
   </div>
 </template>

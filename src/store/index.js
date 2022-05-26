@@ -9,11 +9,8 @@ export default new Vuex.Store({
     dataFromApi: {},
   },
   getters: {
-    date(state) {
-      return Date(state.dataFromApi).split(' ').slice(1, 4).join(' ');
-    },
-    time(state) {
-      return Date(state.dataFromApi).split(' ')[4].split(':').slice(0, 2).join(':');
+    current(state) {
+      return state.dataFromApi.data?.current;
     },
   },
   mutations: {

@@ -20,24 +20,31 @@ export default {
     return {
       dataFromApi: {},
       weekDay: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+      dateTime: {
+        time: '',
+        date: '',
+        day: '',
+      },
     };
   },
   computed: {
-    dateTime() {
-      return {
-        time: this.$store.getters.time,
-        date: this.$store.getters.date,
-        day: this.weekDay[new Date().getDay()],
-      };
-    },
     location() {
-      return this.$store.state.dataFromApi.data.location.name;
+      return this.$store.state.dataFromApi.data?.location.name;
     },
   },
 
   methods: {
+    refreshTime() {
+      this.dateTime = {
+        time: Date().split(' ')[4].split(':').slice(0, 2).join(':'),
+        date: Date().split(' ').slice(1, 4).join(' '),
+        day: this.weekDay[new Date().getDay()],
+      };
+    },
   },
   created() {
+    this.refreshTime();
+    setInterval(this.refreshTime, 10000);
   },
 };
 </script>
@@ -46,6 +53,7 @@ export default {
 .date-time {
   text-align: right;
   padding: 1rem;
+  padding-bottom: 0;
   &__date {
     font-size: 1.5rem;
     font-weight: 400;
