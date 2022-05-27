@@ -39,13 +39,11 @@ export default {
 <style lang="scss" scoped>
 .forecast {
   text-align: right;
-  padding: 1rem;
-  padding-bottom: 0;
+  padding: 0 1rem;
 
   &__day {
     list-style: none;
     display: flex;
-    // justify-content: space-between;
     height: 2rem;
     align-items: center;
 
@@ -64,6 +62,7 @@ export default {
         text-align: right;
     }
   }
+
   &__divider {
     border-top: 1px solid;
   }
