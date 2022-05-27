@@ -17,6 +17,10 @@
         <div class="weather__temp--value">{{ tempC }}</div>
         <div class="weather__temp--feelslike">Feels like {{feelsTemp}}</div>
     </div>
+    <div class="weather__other">
+      <div>Humidity {{ humidity }}</div>
+      <div>Air pressure {{ pressure }}</div>
+    </div>
     <hr class="date-time__divider">
   </div>
 </template>
@@ -38,33 +42,33 @@ export default {
   computed: {
     wind() {
       return {
-        speed: this.$store.getters.current?.wind_kph,
-        dir: this.$store.getters.current?.wind_dir,
+        speed: this.$store.getters.forecast?.data?.current?.wind_kph,
+        dir: this.$store.getters.forecast?.data?.current?.wind_dir,
       };
     },
     condition() {
-      return this.$store.getters.current?.condition.text;
+      return this.$store.getters.forecast?.data?.current?.condition.text;
     },
     lastUpdated() {
-      return this.$store.getters.current?.last_updated.split(' ')[1];
+      return this.$store.getters.forecast?.data?.current?.last_updated.split(' ')[1];
     },
     icon() {
-      return this.$store.getters.current?.condition?.icon;
+      return this.$store.getters.forecast?.data?.current?.condition?.icon;
     },
     tempC() {
-      return `${this.$store.getters.current?.temp_c}°`;
+      return `${this.$store.getters.forecast?.data?.current?.temp_c}°`;
     },
     feelsTemp() {
-      return `${this.$store.getters.current?.feelslike_c}°`;
+      return `${this.$store.getters.forecast?.data?.current?.feelslike_c}°`;
+    },
+    pressure() {
+      return `${this.$store.getters.forecast?.data?.current?.pressure_mb} hPa`;
+    },
+    humidity() {
+      return `${this.$store.getters.forecast?.data?.current?.humidity} % `;
     },
   },
   created() {
-    setInterval(() => {
-      this.$store.dispatch('getDataFromApi');
-      console.log('Pobrano dane:');
-      console.log(Date().split(' ')[4].split(':').slice(0, 2).join(':'));
-      console.log(this.lastUpdated);
-    }, 900000);
   },
 };
 </script>
@@ -99,7 +103,12 @@ export default {
       font-size: 1rem;
       width: 100%;
       letter-spacing: 1px;
+      margin-bottom: 1rem;
     }
+  }
+  &__other {
+    display: flex;
+    justify-content: space-between;
   }
   &__divider {
     border-top: 1px solid;

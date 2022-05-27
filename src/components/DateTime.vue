@@ -18,7 +18,7 @@
 export default {
   data() {
     return {
-      dataFromApi: {},
+      weatherFromApi: {},
       weekDay: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
       dateTime: {
         time: '',
@@ -29,7 +29,7 @@ export default {
   },
   computed: {
     location() {
-      return this.$store.state.dataFromApi.data?.location.name;
+      return this.$store.state.weatherFromApi.data?.location.name;
     },
   },
 
