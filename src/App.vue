@@ -11,8 +11,15 @@
 <script>
 export default {
   async created() {
-    await this.$store.dispatch('getDataFromApi');
-    console.log('test', this.$store.state.dataFromApi);
+    // await this.$store.dispatch('getWeatherFromApi');
+    await this.$store.dispatch('getForecastFromApi');
+    setInterval(() => {
+      this.$store.dispatch('getForecastFromApi').then(() => {
+        console.log('Pobrano dane:');
+        console.log(Date().split(' ')[4].split(':').slice(0, 2).join(':'));
+        console.log(this.$store.getters.forecast?.data?.current?.last_updated.split(' ')[1]);
+      });
+    }, 900000);
   },
 };
 </script>
