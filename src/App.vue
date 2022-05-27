@@ -11,7 +11,6 @@
 <script>
 export default {
   async created() {
-    // await this.$store.dispatch('getWeatherFromApi');
     await this.$store.dispatch('getForecastFromApi');
     setInterval(() => {
       this.$store.dispatch('getForecastFromApi').then(() => {
