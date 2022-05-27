@@ -83,8 +83,7 @@ export default {
       justify-content: right;
 
     &--padding-left {
-        padding-left: 2rem;
-
+        padding-left: 1rem;
     }
   }
 
