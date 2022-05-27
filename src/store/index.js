@@ -16,6 +16,9 @@ export default new Vuex.Store({
     forecast(state) {
       return state.forecastFromApi;
     },
+    location(state) {
+      return state.forecastFromApi.data?.location;
+    },
   },
   mutations: {
     saveWeatherFromApi(state, data) {
@@ -26,12 +29,18 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    async getWeatherFromApi(context) {
-      const response = await axios.get('http://api.weatherapi.com/v1/current.json?key=d6d816f3e87047df8e8155857222305&q=Dąbrowa Górnicza&aqi=yes');
-      context.commit('saveWeatherFromApi', response);
-    },
     async getForecastFromApi(context) {
-      const response = await axios.get('https://api.weatherapi.com/v1/forecast.json?key=d6d816f3e87047df8e8155857222305&q=Dąbrowa Górnicza&days=3&aqi=yes&alerts=yes');
+      // const response = await axios.get('https://api.weatherapi.com/v1/forecast.json?key=d6d816f3e87047df8e8155857222305&q=Dąbrowa Górnicza&days=3&aqi=yes&alerts=yes');
+      const response = await axios.get('https://api.weatherapi.com/v1/forecast.json?', {
+        params: {
+          key: 'd6d816f3e87047df8e8155857222305',
+          q: 'Dąbrowa Górnicza',
+          days: 3,
+          aqi: 'yes',
+          alerts: 'yes',
+        },
+      });
+
       context.commit('saveForecastFromApi', response);
     },
   },

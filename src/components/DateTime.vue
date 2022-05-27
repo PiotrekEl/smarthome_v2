@@ -29,7 +29,7 @@ export default {
   },
   computed: {
     location() {
-      return this.$store.state.weatherFromApi.data?.location.name;
+      return this.$store.getters.location?.name;
     },
   },
 

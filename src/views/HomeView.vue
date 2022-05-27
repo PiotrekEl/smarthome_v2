@@ -3,9 +3,12 @@
     <div class="home__right-panel">
       <date-time/>
       <current-weather/>
+    </div>
+    <div class="home__left-panel">
+      <calendar :firstDayOfWeek = 1 />
+      <hr class="divider"/>
       <forecast-weather/>
     </div>
-    <!-- <img alt="Vue logo" src="../assets/logo.png"> -->
   </div>
 </template>
 
@@ -14,6 +17,7 @@
 import DateTime from '@/components/DateTime.vue';
 import CurrentWeather from '@/components/CurrentWeather.vue';
 import ForecastWeather from '@/components/ForecastWeather.vue';
+import Calendar from '@/components/calendar/CalendarView.vue';
 
 export default {
   name: 'HomeView',
@@ -21,6 +25,7 @@ export default {
     DateTime,
     CurrentWeather,
     ForecastWeather,
+    Calendar,
   },
 };
 </script>
@@ -34,5 +39,15 @@ export default {
   right: 0;
   top: 0;
   }
+
+  &__left-panel {
+  width: 20rem;
+  position: fixed;
+  left: 0;
+  top: 0;
+  }
+}
+.divider {
+  margin: 0 1rem;
 }
 </style>
