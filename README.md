@@ -1,4 +1,12 @@
 # smathome_v2
+I was inspired by this project:
+https://www.youtube.com/watch?v=OYlloiaBINo
+
+## TODO list:
+-forecastHourly -> add more information (not only hour, icon and temperature),
+                -> fix refresh 
+- fix refresh calendar, and forecast daily
+- add environment variables: api key, localization
 
 ## Project setup
 ```

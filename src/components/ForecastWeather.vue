@@ -1,7 +1,7 @@
 <template>
   <ul class="forecast">
     <li v-for="(day, idx) in forecastDays"
-      :key="`forecastDay${idx}`"
+      :key="`forecastDay_${idx}`"
       class="forecast__day">
       <div>{{ formatDate(day) }}</div>
       <div><img :src="day.day.condition.icon" alt="icon"></div>
@@ -31,7 +31,6 @@ export default {
     },
   },
   created() {
-    // console.log(this.$store.getters.forecast);
   },
 };
 </script>
@@ -55,10 +54,10 @@ export default {
       text-align: left;
     }
     div:first-child {
-        width: 20%;
+        width: 30%;
     }
     div:last-child {
-        width: 30%;
+        width: 40%;
         text-align: right;
     }
   }

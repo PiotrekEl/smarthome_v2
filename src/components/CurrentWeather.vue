@@ -1,21 +1,26 @@
 <template>
   <div class="weather">
     <div class="weather__top-bar">
-      <div class="weather__top-bar--padding-left">
+      <div>
         {{ condition }}
       </div>
       <div class="weather__top-bar--padding-left">
         <font-awesome-icon icon="fa-solid fa-wind" />
-        {{ wind.speed }} {{ wind.dir }}
+        {{ wind.speed }}
+        <font-awesome-icon icon="fa-solid fa-arrow-up" :style="windRotate" />
+        {{ wind.dir }}
       </div>
-      <div class="weather__top-bar--padding-left">
+      <div class="weather__top-bar--padding-left description">
         {{ lastUpdated }}
+        <span class="">
+          Last Update
+        </span>
       </div>
     </div>
     <div class="weather__temp">
-        <img :src="icon" alt="icon" />
-        <div class="weather__temp--value">{{ tempC }}</div>
-        <div class="weather__temp--feelslike">Feels like {{feelsTemp}}</div>
+      <img :src="icon" alt="icon" />
+      <div class="weather__temp--value">{{ tempC }}</div>
+      <div class="weather__temp--feelslike">Feels like {{ feelsTemp }}</div>
     </div>
     <div class="weather__other">
       <div>Humidity {{ humidity }}</div>
@@ -27,10 +32,10 @@
 
 <script>
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faWind } from '@fortawesome/free-solid-svg-icons';
+import { faWind, faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
-library.add(faWind);
+library.add(faWind, faArrowUp);
 
 export default {
   name: 'CurrentWeather',
@@ -44,7 +49,11 @@ export default {
       return {
         speed: this.$store.getters.forecast?.data?.current?.wind_kph,
         dir: this.$store.getters.forecast?.data?.current?.wind_dir,
+        degree: this.$store.getters.forecast?.data?.current?.wind_degree,
       };
+    },
+    windRotate() {
+      return { transform: `rotate(${this.wind.degree}deg)` };
     },
     condition() {
       return this.$store.getters.forecast?.data?.current?.condition.text;
@@ -56,6 +65,7 @@ export default {
       return this.$store.getters.forecast?.data?.current?.condition?.icon;
     },
     tempC() {
+      console.log(this.$store.getters.forecast?.data?.current);
       return `${this.$store.getters.forecast?.data?.current?.temp_c}°`;
     },
     feelsTemp() {
@@ -68,8 +78,6 @@ export default {
       return `${this.$store.getters.forecast?.data?.current?.humidity} % `;
     },
   },
-  created() {
-  },
 };
 </script>
 
@@ -79,11 +87,15 @@ export default {
   padding: 0 1rem;
 
   &__top-bar {
-      display: flex;
-      justify-content: right;
+    display: flex;
+    justify-content: space-between;
 
     &--padding-left {
-        padding-left: 1rem;
+      padding-left: 1rem;
+    }
+
+    &--rotate {
+      transform: rotate(250deg);
     }
   }
 
@@ -93,11 +105,14 @@ export default {
     display: flex;
     flex-wrap: wrap;
     justify-content: right;
+    align-items: center;
 
     img {
+      width: 6.25rem;
       height: 100%;
       padding: 0.5rem;
     }
+
     &--feelslike {
       font-size: 1rem;
       width: 100%;
@@ -105,12 +120,35 @@ export default {
       margin-bottom: 1rem;
     }
   }
+
   &__other {
     display: flex;
     justify-content: space-between;
   }
+
   &__divider {
     border-top: 1px solid;
   }
+}
+.description {
+  position: relative;
+  display: flex;
+}
+.description span {
+  visibility: hidden;
+  font-size: 0.8rem;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  right: 0;
+  border-color: white;
+}
+.description:hover span {
+  visibility: visible;
+  border: 1px solid white;
 }
 </style>

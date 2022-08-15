@@ -3,6 +3,7 @@
     <div class="home__right-panel">
       <date-time/>
       <current-weather/>
+      <forecast-hourly/>
     </div>
     <div class="home__left-panel">
       <calendar :firstDayOfWeek = 1 />
@@ -18,6 +19,7 @@ import DateTime from '@/components/DateTime.vue';
 import CurrentWeather from '@/components/CurrentWeather.vue';
 import ForecastWeather from '@/components/ForecastWeather.vue';
 import Calendar from '@/components/calendar/CalendarView.vue';
+import ForecastHourly from '@/components/ForecastHourly.vue';
 
 export default {
   name: 'HomeView',
@@ -26,6 +28,7 @@ export default {
     CurrentWeather,
     ForecastWeather,
     Calendar,
+    ForecastHourly,
   },
 };
 </script>
