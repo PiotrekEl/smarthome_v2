@@ -49,7 +49,7 @@ export default new Vuex.Store({
     async getForecastFromApi(context) {
       const response = await axios.get('https://api.weatherapi.com/v1/forecast.json?', {
         params: {
-          key: 'd6d816f3e87047df8e8155857222305',
+          key: 'your api key',
           q: 'Dąbrowa Górnicza',
           days: 3,
           aqi: 'yes',
