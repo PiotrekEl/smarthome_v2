@@ -65,7 +65,6 @@ export default {
       return this.$store.getters.forecast?.data?.current?.condition?.icon;
     },
     tempC() {
-      console.log(this.$store.getters.forecast?.data?.current);
       return `${this.$store.getters.forecast?.data?.current?.temp_c}°`;
     },
     feelsTemp() {

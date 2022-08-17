@@ -1,7 +1,6 @@
 <template>
   <ul class="forecast_hourly">
-    <li v-for="(hour, idx) in forecastHoursNeeded"
-      :key="`forecast_hourly_today_${idx}`"
+    <li v-for="(hour, idx) in forecastHoursNeeded" :key="`forecast_hourly_today_${idx}`"
       class="forecast_hourly__hour">
       <div>{{ formatHour(hour.time) }}</div>
       <div><img :src="hour.condition.icon" alt="icon"></div>
@@ -15,25 +14,21 @@ export default {
   name: 'ForecastHourly',
   data() {
     return {
-      neededHours: 8,
+      neededHours: 8, // how many hours we want to show in the hourly forecast
     };
   },
 
   computed: {
-    forecastHours() {
-      return {
-        today: this.$store.getters.forecast?.data?.forecast?.forecastday[0]
-          .hour.slice(this.nowHour),
-        tomorrow: this.$store.getters.forecast?.data?.forecast?.forecastday[1]
-          .hour.slice(0, this.nowHour),
-      };
-    },
+    // for the hourly forecast, we need to calculate the number of hours
     forecastHoursNeeded() {
-      return this.forecastHours.today?.concat(this.forecastHours.tomorrow)
+      return this.$store.getters.forecast?.data?.forecast?.forecastday[0]
+        .hour.slice(this.startHour).concat(this.$store.getters.forecast?.data?.forecast
+          ?.forecastday[1].hour.slice(0, this.startHour))
         .slice(0, this.neededHours) || [];
     },
-    nowHour() {
-      return new Date().getHours() + 1; // need next hour forecast
+    // for forecast hourly not current hour is need, we need next hour
+    startHour() {
+      return this.$store.getters.nowHour + 1;
     },
   },
 
@@ -62,22 +57,27 @@ export default {
     display: flex;
     height: 2rem;
     align-items: center;
+
     img {
       height: 2rem;
     }
+
     div {
       width: 25%;
       text-align: left;
     }
+
     div:first-child {
-        width: 30%;
+      width: 30%;
     }
+
     div:last-child {
-        width: 40%;
-        text-align: right;
+      width: 40%;
+      text-align: right;
     }
   }
 }
+
 // .forecast_hourly::after {
 //   position: absolute;
 //   left: 0;

@@ -17,6 +17,13 @@ export default {
     setInterval(() => {
       this.$store.dispatch('getForecastFromApi').then(() => {});
     }, 900000);
+
+    this.$store.dispatch('refreshTime');
+    this.$store.dispatch('nowHour');
+    setInterval(() => {
+      this.$store.dispatch('refreshTime');
+      this.$store.dispatch('nowHour');
+    }, 10000);
   },
 };
 </script>

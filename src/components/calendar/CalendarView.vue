@@ -1,21 +1,9 @@
 /* eslint-disable no-console */
 <template>
-  <div
-    id="single-date-picker"
-    class="single-date-picker__calendar-view"
-  >
-    <CalendarMonthHeader
-      :year="year"
-      :month="month"
-      @toggleMonth="toggleMonth"
-    />
-    <CalendarMonth
-      :dates-per-week="datesPerWeek"
-      :is-today="isToday"
-      :is-selected="isSelected"
-      :week-start-day="weekStartDay"
-      @selectDate="selectDate"
-    />
+  <div id="single-date-picker" class="single-date-picker__calendar-view">
+    <CalendarMonthHeader :year="year" :month="month" @toggleMonth="toggleMonth" />
+    <CalendarMonth :dates-per-week="datesPerWeek" :is-today="isToday" :is-selected="isSelected"
+      :week-start-day="weekStartDay" @selectDate="selectDate" />
   </div>
 </template>
 
@@ -126,21 +114,25 @@ export default {
     },
   },
   created() {
-    const date = new Date();
-    if (this.date) {
-      this.setDate(this.date);
-    } else {
-      this.year = date.getFullYear();
-      this.month = date.getMonth();
-    }
-    this.todayDate = date.getDate();
-    this.todayYear = date.getFullYear();
-    this.todayMonth = date.getMonth();
-
-    this.weekStartDay = (this.firstDayOfWeek >= 0 && this.firstDayOfWeek <= 6)
-      ? this.firstDayOfWeek : 0;
+    this.setCurrentDate();
+    setInterval(this.setCurrentDate, 10000);
   },
   methods: {
+    setCurrentDate() {
+      const date = new Date();
+      if (this.date) {
+        this.setDate(this.date);
+      } else {
+        this.year = date.getFullYear();
+        this.month = date.getMonth();
+      }
+      this.todayDate = date.getDate();
+      this.todayYear = date.getFullYear();
+      this.todayMonth = date.getMonth();
+
+      this.weekStartDay = (this.firstDayOfWeek >= 0 && this.firstDayOfWeek <= 6)
+        ? this.firstDayOfWeek : 0;
+    },
     generateDatesInWeek(startDate, startDay, numDays) {
       const datesInWeek = new Array(7).fill(0);
       for (let i = 0; i < numDays; i += 1) {

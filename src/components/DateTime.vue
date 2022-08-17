@@ -16,35 +16,13 @@
 <script>
 
 export default {
-  data() {
-    return {
-      weatherFromApi: {},
-      weekDay: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-      dateTime: {
-        time: '',
-        date: '',
-        day: '',
-      },
-    };
-  },
   computed: {
     location() {
       return this.$store.getters.location?.name;
     },
-  },
-
-  methods: {
-    refreshTime() {
-      this.dateTime = {
-        time: Date().split(' ')[4].split(':').slice(0, 2).join(':'),
-        date: Date().split(' ').slice(1, 4).join(' '),
-        day: this.weekDay[new Date().getDay()],
-      };
+    dateTime() {
+      return this.$store.getters.dateTime;
     },
-  },
-  created() {
-    this.refreshTime();
-    setInterval(this.refreshTime, 10000);
   },
 };
 </script>

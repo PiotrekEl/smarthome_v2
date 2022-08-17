@@ -2,12 +2,14 @@
 I was inspired by this project:
 https://www.youtube.com/watch?v=OYlloiaBINo
 
-## TODO list:
--forecastHourly -> add more information (not only hour, icon and temperature),
-                -> fix refresh 
-- fix refresh calendar, and forecast daily
-- add environment variables: api key, localization
 
+For the app to work, need: 
+- API key from wheatherapi.com
+
+## TODO list:
+- forecastHourly -> add more information (not only hour, icon and temperature) 
+- fix refresh calendar
+- add environment variables: api key, localization
 ## Project setup
 ```
 nvm use 14.15.5
